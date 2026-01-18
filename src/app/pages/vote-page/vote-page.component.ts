@@ -35,7 +35,8 @@ export class VotePageComponent implements OnInit, OnDestroy{
   }
 
   like(cat: Cat): void {
-   // todo: implement like logic
-  }
+    this.catsService.voteFor(cat.id);
+    this.pickNewPair();   
+    }
   
 }

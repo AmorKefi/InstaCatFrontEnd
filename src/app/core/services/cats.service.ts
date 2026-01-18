@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, map, tap } from 'rxjs';
 import { Cat } from '../models/cat.model';
 import { HttpClient } from '@angular/common/http';
 
@@ -14,7 +14,7 @@ export class CatsService {
   http: HttpClient = inject(HttpClient);
   constructor() {
     this.loadCats();
-   }
+  }
 
   private loadCats(): void {
     this.http
@@ -26,7 +26,7 @@ export class CatsService {
         error: (err) => console.error('Erreur chargement chats', err)
       });
   }
-  
+
   getTwoRandomCats(): [Cat, Cat] | null {
     const cats = this.catsSubject.value;
     if (cats.length < 2) return null;
@@ -38,5 +38,21 @@ export class CatsService {
     }
 
     return [cats[firstIndex], cats[secondIndex]];
+  }
+
+  voteFor(catId: string): void {
+    this.http
+      .put<Cat>(`${this.apiBase}/cats/${catId}/vote`, {})
+      .pipe(
+        tap((updatedCat) => {
+          const cats = this.catsSubject.value.map((c) =>
+            c.id === updatedCat.id ? updatedCat : c
+          );
+          this.catsSubject.next(cats);
+        })
+      )
+      .subscribe({
+        error: (err) => console.error('Erreur vote', err)
+      });
   }
 }
