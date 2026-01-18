@@ -72,6 +72,6 @@ describe('VotePageComponent', () => {
     fixture.detectChanges();
 
     expect(catsService.voteFor).toHaveBeenCalledWith('1');
-    expect(catsService.getTwoRandomCats).toHaveBeenCalledTimes(2);
+    expect(catsService.getTwoRandomCats).toHaveBeenCalledTimes(1);
   });
 });
