@@ -1,0 +1,33 @@
+<div class="vote">
+  <div class="vote__card">
+    <div class="vote__title">InstaCat</div>
+
+    <div class="vote__cats" *ngIf="leftCat && rightCat">
+      <div class="vote__cat">
+        <div class="vote__image-wrapper">
+          <img [src]="leftCat.url" alt="Chat 1" />
+        </div>
+        <div class="vote__label">Chat 1</div>
+        <button class="vote__button" (click)="like(leftCat)">J'aime</button>
+      </div>
+
+      <div class="vote__separator">
+        <span class="vote__dots"></span>
+      </div>
+
+      <div class="vote__cat">
+        <div class="vote__image-wrapper">
+          <img [src]="rightCat.url" alt="Chat 2" />
+        </div>
+        <div class="vote__label">Chat 2</div>
+        <button class="vote__button" (click)="like(rightCat)">J'aime</button>
+      </div>
+    </div>
+
+    <div class="vote__footer">
+      <a routerLink="/ranking" class="vote__ranking-link">
+        Voir le classement des chats
+      </a>
+    </div>
+  </div>
+</div>
