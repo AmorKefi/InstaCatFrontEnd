@@ -1,0 +1,72 @@
+<div class="ranking" *ngIf="cats$ | async as cats">
+  <div class="ranking__card">
+    <div class="ranking__header">
+      <h1>InstaCat</h1>
+    </div>
+
+    <div class="ranking__podium" *ngIf="cats.length > 0">
+      <div
+        class="ranking__podium-card ranking__podium-card--second"
+        *ngIf="cats[1]"
+      >
+        <div class="ranking__podium-rank">2</div>
+        <div class="ranking__podium-image">
+          <img [src]="cats[1].url" alt="Chat 2" />
+        </div>
+        <div class="ranking__podium-name">Chat 2</div>
+        <div class="ranking__podium-score">
+          Score : {{ cats[1].score }} pts
+        </div>
+      </div>
+
+      <div
+        class="ranking__podium-card ranking__podium-card--first"
+        *ngIf="cats[0]"
+      >
+        <div class="ranking__podium-rank">1</div>
+        <div class="ranking__podium-image">
+          <img [src]="cats[0].url" alt="Chat 1" />
+        </div>
+        <div class="ranking__podium-name">Chat 1</div>
+        <div class="ranking__podium-score">
+          Score : {{ cats[0].score }} pts
+        </div>
+      </div>
+
+      <div
+        class="ranking__podium-card ranking__podium-card--third"
+        *ngIf="cats[2]"
+      >
+        <div class="ranking__podium-rank">3</div>
+        <div class="ranking__podium-image">
+          <img [src]="cats[2].url" alt="Chat 3" />
+        </div>
+        <div class="ranking__podium-name">Chat 3</div>
+        <div class="ranking__podium-score">
+          Score : {{ cats[2].score }} pts
+        </div>
+      </div>
+    </div>
+
+    <div class="ranking__grid">
+      <ng-container *ngFor="let cat of cats; let i = index">
+        <div class="ranking__item" *ngIf="i >= 3">
+          <div class="ranking__item-rank">{{ i + 1 }}</div>
+
+          <div class="ranking__item-image">
+            <img [src]="cat.url" alt="Chat {{ i + 1 }}" />
+          </div>
+
+          <div class="ranking__item-name">Chat {{ i + 1 }}</div>
+          <div class="ranking__item-score">
+            Score : {{ cat.score }} pts
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="ranking__footer">
+      <a routerLink="/vote" class="ranking__back">Revenir au vote</a>
+    </div>
+  </div>
+</div>
